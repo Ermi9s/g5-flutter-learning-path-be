@@ -60,24 +60,24 @@ export class ProductsController {
   }
 
   @Put(':id')
-  @UseInterceptors(FileInterceptor('image'))
+  // @UseInterceptors(FileInterceptor('image'))
   async update(
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: +process.env.MAX_FILE_SIZE }),
-          new FileTypeValidator({ fileType: 'image/*' }),
-        ],
-      }),
-    )
-    file: Express.Multer.File,
+    // @UploadedFile(
+    //   new ParseFilePipe({
+    //     validators: [
+    //       new MaxFileSizeValidator({ maxSize: +process.env.MAX_FILE_SIZE }),
+    //       new FileTypeValidator({ fileType: 'image/*' }),
+    //     ],
+    //   }),
+    // )
+    // file: Express.Multer.File,
   ) {
     const product = await this.productsService.update(
       id,
       updateProductDto,
-      file,
+      null,
     );
     if (!product) {
       throw new NotFoundException('Product not found');

@@ -12,7 +12,7 @@ export class ProductDto {
   description: string;
 
   @ApiProperty()
-  price: string;
+  price: number;
 
   @ApiProperty()
   imageUrl: string;
@@ -21,7 +21,7 @@ export class ProductDto {
     this.id = partial.id;
     this.name = partial.name;
     this.description = partial.description;
-    this.price = partial.price;
+    this.price = +partial.price;
     this.imageUrl = partial.imageUrl;
   }
 }

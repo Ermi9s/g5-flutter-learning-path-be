@@ -42,7 +42,11 @@ export class ProductsService {
     return await this.productModel.findOne({ _id: id }).exec();
   }
 
-  async update(id: string, data: UpdateProductDto, image: Express.Multer.File) {
+  async update(
+    id: string,
+    data: UpdateProductDto,
+    image: Express.Multer.File | null,
+  ) {
     if (image) {
       const product = await this.findOne(id);
 
@@ -70,7 +74,7 @@ export class ProductsService {
         .updateOne({ _id: id }, data)
         .exec();
 
-      if (result.modifiedCount > 0) {
+      if (result.matchedCount > 0) {
         return await this.productModel.findOne({ _id: id }).exec();
       }
     }
@@ -78,6 +82,7 @@ export class ProductsService {
 
   async delete(id: string) {
     const product = await this.findOne(id);
+
     if (!product) {
       return false;
     }
