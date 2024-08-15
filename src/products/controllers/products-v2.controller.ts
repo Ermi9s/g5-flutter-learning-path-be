@@ -12,17 +12,21 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { UpdateProductDto } from '../dtos/update-product.dto';
 import { ProductDto } from '../dtos/product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@Controller('products')
-@ApiTags('products-v1')
-export class ProductsController {
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@ApiTags('products-v2')
+@Controller({ version: '2', path: 'products' })
+export class GuardedProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
@@ -62,19 +66,9 @@ export class ProductsController {
   }
 
   @Put(':id')
-  // @UseInterceptors(FileInterceptor('image'))
   async update(
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
-    // @UploadedFile(
-    //   new ParseFilePipe({
-    //     validators: [
-    //       new MaxFileSizeValidator({ maxSize: +process.env.MAX_FILE_SIZE }),
-    //       new FileTypeValidator({ fileType: 'image/*' }),
-    //     ],
-    //   }),
-    // )
-    // file: Express.Multer.File,
   ) {
     const product = await this.productsService.update(
       id,
