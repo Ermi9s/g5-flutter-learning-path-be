@@ -45,7 +45,11 @@ export class AuthService {
       return null;
     }
 
-    return user;
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    } as unknown as any;
   }
 
   async register(user: User): Promise<any> {

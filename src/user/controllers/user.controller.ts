@@ -15,6 +15,11 @@ export class UserController {
 
   @Get('me')
   async getMe(@Req() req: Request) {
-    return (req as unknown as any).user;
+    const user = (req as unknown as any).user;
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    };
   }
 }
