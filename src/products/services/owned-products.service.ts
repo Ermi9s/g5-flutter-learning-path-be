@@ -107,7 +107,7 @@ export class OwnedProductsService {
         .exec();
 
       if (result.matchedCount > 0) {
-        return await this.productModel.findOne({ _id: id }).exec();
+        return await this.findOne(id);
       }
     }
   }
