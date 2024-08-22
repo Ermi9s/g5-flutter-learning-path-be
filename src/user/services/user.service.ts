@@ -13,19 +13,19 @@ export class UserService {
     return await this.userModel.create(data);
   }
 
-  async findAll(isDeleted: boolean = false): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     try {
-      return await this.userModel.find({ isDeleted }).exec();
+      return await this.userModel.find().exec();
     } catch (e) {
       console.log(e);
     }
     return [];
   }
 
-  async findOne(id: string, isDeleted: boolean = false): Promise<User | null> {
+  async findOne(id: string): Promise<User | null> {
     try {
       return await this.userModel
-        .findOne({ _id: id, isDeleted })
+        .findOne({ _id: id })
 
         .exec();
     } catch (e) {
@@ -35,14 +35,12 @@ export class UserService {
   }
 
   async update(id: string, data: any) {
-    return await this.userModel
-      .updateOne({ _id: id, isDeleted: false }, data)
-      .exec();
+    return await this.userModel.updateOne({ _id: id }, data).exec();
   }
 
   async delete(id: string) {
     return await this.userModel
-      .updateOne({ _id: id, isDeleted: false }, { isDeleted: true })
+      .updateOne({ _id: id }, { isDeleted: true })
       .exec();
   }
 }
