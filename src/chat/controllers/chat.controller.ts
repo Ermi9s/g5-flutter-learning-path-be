@@ -54,6 +54,20 @@ export class ChatController {
     throw new NotFoundException('Chat not found');
   }
 
+  @Get(':id/messages')
+  async findAllMessages(@Param('id') id: string, @Req() req: Request) {
+    const chat = await this.chatService.findAllChatMessages(
+      id,
+      (req as unknown as any).user,
+    );
+
+    if (chat) {
+      return chat;
+    }
+
+    throw new NotFoundException('Chat not found');
+  }
+
   @Delete(':id')
   async delete(@Param('id') id: string, @Req() req: Request) {
     if (!(await this.chatService.delete(id, (req as unknown as any).user))) {

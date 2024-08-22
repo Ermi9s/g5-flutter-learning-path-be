@@ -37,6 +37,37 @@ export class ChatService {
     });
   }
 
+  async findAllChatMessages(chatId: string, user: any): Promise<Message[]> {
+    const chat = await this.findOne(chatId, user);
+
+    if (!chat) {
+      throw new NotFoundException('Chat not found');
+    }
+
+    return await this.messageModel
+      .find({ chat })
+      .populate([
+        {
+          path: 'sender',
+          select: '-password',
+        },
+        {
+          path: 'chat',
+          populate: [
+            {
+              path: 'user1',
+              select: '-password',
+            },
+            {
+              path: 'user2',
+              select: '-password',
+            },
+          ],
+        },
+      ])
+      .exec();
+  }
+
   async sendMessage(sender: any, messageData: SendMessage) {
     const chat = (await this.findOne(messageData.chatId, sender)) as any;
 
