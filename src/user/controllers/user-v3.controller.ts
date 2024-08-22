@@ -8,9 +8,9 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiBearerAuth()
 @ApiTags('auth')
-@Controller({ version: '2', path: 'users' })
+@Controller({ version: '3', path: 'users' })
 @UseGuards(JwtAuthGuard)
-export class UserController {
+export class UserV3Controller {
   constructor(private readonly userService: UserService) {}
 
   @Get('me')
