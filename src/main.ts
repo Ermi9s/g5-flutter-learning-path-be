@@ -16,6 +16,8 @@ async function bootstrap() {
     defaultVersion: '1',
   });
 
+  app.enableCors();
+
   app.useGlobalInterceptors(new TransformInterceptor());
 
   const config = new DocumentBuilder()
