@@ -17,11 +17,17 @@ export class ProductDto {
   @ApiProperty()
   imageUrl: string;
 
+  @ApiProperty()
+  seller?: any;
+
   constructor(partial: ProductDocument) {
     this.id = partial.id;
     this.name = partial.name;
     this.description = partial.description;
     this.price = +partial.price;
     this.imageUrl = partial.imageUrl;
+    if ((partial as unknown as any).seller) {
+      this.seller = (partial as unknown as any).seller;
+    }
   }
 }
