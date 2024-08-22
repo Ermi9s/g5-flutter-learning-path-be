@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id="token">
+        <option
+            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJzdWIiOiI2NmM3MzA4NDA3NDBmOGMyYmFlOTA0ZTAiLCJpYXQiOjE3MjQzNDQ4NjYsImV4cCI6MTcyNDc3Njg2Nn0.OQyBbwnbjhcyISe-lwRpIztsJ70Gnftiwuiteh1Z5k0">
+            A</option>
+        <option
+            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwic3ViIjoiNjZjNzJiZDFmYzFhNjM4MzBkMDg0MzQ4IiwiaWF0IjoxNzI0MzQ1OTk3LCJleHAiOjE3MjQ3Nzc5OTd9.nUB5PCY-UB0z3aT9m3GyrISHFh3EBdx0FaLrvRqg6Vo">
+            M</option>
+    </select>
+    <input type="text" id="event" placeholder="event" value="message:send">
+
+    <textarea type="text" id="message" placeholder="message">
+        {
+            "chatId": "66c767d7944d8f950440bd9e",
+            "content": "Hello",
+            "type": "text"
+        }
+    </textarea>
+    <button id="send-btn">Send</button>
+    <button id="connect-btn">connect</button>
+
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+
+        let socket;
+        document.getElementById("send-btn").addEventListener("click", () => {
+            const event = document.getElementById("event").value;
+            socket.emit(event, JSON.parse(document.getElementById("message").value));
+        });
+
+        document.getElementById("connect-btn").addEventListener("click", () => {
+            const token = document.getElementById("token").value;
+            socket = io("http://localhost:3000", {
+                extraHeaders: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+
+            socket.on("connect", () => {
+                console.log("Connected");
+            });
+
+            socket.on("disconnect", () => {
+                console.log("Disconnected");
+            });
+
+            socket.on("message:received", (data) => {
+                console.log(data);
+            });
+
+            socket.on("message:sent", (data) => {
+
+                console.log(data);
+            });
+
+            socket.on("error", (error) => {
+                console.log(error);
+            });
+
+            socket.on("connect_error", (error) => {
+                console.log(error);
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
