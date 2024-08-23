@@ -83,12 +83,12 @@ export class ChatService {
 
     message.sender.password = undefined;
 
-    const receiver = chat.user1._id === sender._id ? chat.user2 : chat.user1;
+    const receiver = chat.user1.id === sender.id ? chat.user2 : chat.user1;
 
     for (const receiverSocket of this.connectedClients.values()) {
       const user = (await this.authenticateSocket(receiverSocket)) as any;
 
-      if (user._id === receiver._id) {
+      if (user.id === receiver.id) {
         receiverSocket.emit('message:received', message);
         break;
       }
