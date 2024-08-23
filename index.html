@@ -6,15 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<!-- 
+
+User 1:
+username: user@gmail.com
+id: 66c84151b7068ee15142f817
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwic3ViIjoiNjZiZGUzNmU5YmJlMDdmYzM5MDM0Y2RkIiwiaWF0IjoxNzI0NDEyMjU4LCJleHAiOjE3MjQ4NDQyNTh9.QIERSLkRYkjUZbXQ5O_da76d1Yn4GWA0BUUUCRIO88A
+
+User 2:
+id: 66c840e4b7068ee15142f7ef
+email: cat@gmail.com
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhdEBnbWFpbC5jb20iLCJzdWIiOiI2NmM4NDBlNGI3MDY4ZWUxNTE0MmY3ZWYiLCJpYXQiOjE3MjQ0MTI0MTksImV4cCI6MTcyNDg0NDQxOX0.1WxGXFXiJD_pIvm96rgxoDAC3Tzfb5ac8oGtJYIAY_E
+
+Chat ID: 66c84151b7068ee15142f817
+
+
+////////////// local
+user 1 :
+email: user@gmail.com
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwic3ViIjoiNjZjNzYzNGE5MWM2ODIzNDU0ZTg2MjAyIiwiaWF0IjoxNzI0NDEzOTA0LCJleHAiOjE3MjQ4NDU5MDR9.GOA0IV5YYdYBoQYpZG6_H_Gp5lPNG9mfB1xiBlF6j1Q
+id: 66c7634a91c6823454e86202
+
+
+user 2:
+id: 66c730840740f8c2bae904e0
+email: a@a.com
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJzdWIiOiI2NmM3MzA4NDA3NDBmOGMyYmFlOTA0ZTAiLCJpYXQiOjE3MjQ0MTM5OTQsImV4cCI6MTcyNDg0NTk5NH0.UxC_IVuIzF6SsZRCJ6xk0QNcotX90--fc5vF8anAPV8
+
+chat: 66c767d7944d8f950440bd9e
+
+ -->
 
 <body>
     <select id="token">
-        <option
+        <!-- <option
             value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJzdWIiOiI2NmM3MzA4NDA3NDBmOGMyYmFlOTA0ZTAiLCJpYXQiOjE3MjQzNDQ4NjYsImV4cCI6MTcyNDc3Njg2Nn0.OQyBbwnbjhcyISe-lwRpIztsJ70Gnftiwuiteh1Z5k0">
-            A</option>
+            A</option> -->
         <option
-            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1AZ21haWwuY29tIiwic3ViIjoiNjZjNzJiZDFmYzFhNjM4MzBkMDg0MzQ4IiwiaWF0IjoxNzI0MzQ1OTk3LCJleHAiOjE3MjQ3Nzc5OTd9.nUB5PCY-UB0z3aT9m3GyrISHFh3EBdx0FaLrvRqg6Vo">
-            M</option>
+            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwic3ViIjoiNjZiZGUzNmU5YmJlMDdmYzM5MDM0Y2RkIiwiaWF0IjoxNzI0NDEyMjU4LCJleHAiOjE3MjQ4NDQyNTh9.QIERSLkRYkjUZbXQ5O_da76d1Yn4GWA0BUUUCRIO88A">
+            remote User</option>
+        <option
+            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhdEBnbWFpbC5jb20iLCJzdWIiOiI2NmM4NDBlNGI3MDY4ZWUxNTE0MmY3ZWYiLCJpYXQiOjE3MjQ0MTI0MTksImV4cCI6MTcyNDg0NDQxOX0.1WxGXFXiJD_pIvm96rgxoDAC3Tzfb5ac8oGtJYIAY_E">
+            remote Cat</option>
+        <option
+            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZ21haWwuY29tIiwic3ViIjoiNjZjNzYzNGE5MWM2ODIzNDU0ZTg2MjAyIiwiaWF0IjoxNzI0NDEzOTA0LCJleHAiOjE3MjQ4NDU5MDR9.GOA0IV5YYdYBoQYpZG6_H_Gp5lPNG9mfB1xiBlF6j1Q">
+            local User</option>
+        <option
+            value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJzdWIiOiI2NmM3MzA4NDA3NDBmOGMyYmFlOTA0ZTAiLCJpYXQiOjE3MjQ0MTM5OTQsImV4cCI6MTcyNDg0NTk5NH0.UxC_IVuIzF6SsZRCJ6xk0QNcotX90--fc5vF8anAPV8">
+            local a@a.com</option>
     </select>
     <input type="text" id="event" placeholder="event" value="message:send">
 
@@ -40,6 +79,7 @@
         document.getElementById("connect-btn").addEventListener("click", () => {
             const token = document.getElementById("token").value;
             socket = io("http://localhost:3000", {
+
                 extraHeaders: {
                     "Authorization": `Bearer ${token}`
                 }

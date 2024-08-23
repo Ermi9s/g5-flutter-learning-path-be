@@ -44,28 +44,30 @@ export class ChatService {
       throw new NotFoundException('Chat not found');
     }
 
-    return await this.messageModel
-      .find({ chat })
-      .populate([
-        {
-          path: 'sender',
-          select: '-password',
-        },
-        {
-          path: 'chat',
-          populate: [
-            {
-              path: 'user1',
-              select: '-password',
-            },
-            {
-              path: 'user2',
-              select: '-password',
-            },
-          ],
-        },
-      ])
-      .exec();
+    return (
+      await this.messageModel
+        .find()
+        .populate([
+          {
+            path: 'sender',
+            select: '-password',
+          },
+          {
+            path: 'chat',
+            populate: [
+              {
+                path: 'user1',
+                select: '-password',
+              },
+              {
+                path: 'user2',
+                select: '-password',
+              },
+            ],
+          },
+        ])
+        .exec()
+    ).filter((m: any) => m.chat.id === chat.id);
   }
 
   async sendMessage(sender: any, messageData: SendMessage) {
@@ -81,12 +83,12 @@ export class ChatService {
 
     message.sender.password = undefined;
 
-    const receiver = chat.user1.id === sender.id ? chat.user2 : chat.user1;
+    const receiver = chat.user1._id === sender._id ? chat.user2 : chat.user1;
 
     for (const receiverSocket of this.connectedClients.values()) {
       const user = (await this.authenticateSocket(receiverSocket)) as any;
 
-      if (user.id === receiver.id) {
+      if (user._id === receiver._id) {
         receiverSocket.emit('message:received', message);
         break;
       }
