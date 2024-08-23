@@ -13,7 +13,7 @@ export class Message {
   @Prop({ type: Types.ObjectId, required: true, ref: Chat.name })
   chat: Chat;
 
-  @Prop()
+  @Prop({ default: 'text' })
   type: string;
 
   @Prop()
