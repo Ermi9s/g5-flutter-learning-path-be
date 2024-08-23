@@ -123,7 +123,7 @@ export class ChatService {
       data.userId,
     )) as unknown as any;
 
-    if (!user2) throw NotFoundException('User not found');
+    if (!user2) throw new NotFoundException('User not found');
 
     const chats = await this.chatModel.find().populate(['user1', 'user2']);
 
