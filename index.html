@@ -59,7 +59,7 @@ chat: 66c767d7944d8f950440bd9e
 
     <textarea type="text" id="message" placeholder="message">
         {
-            "chatId": "66c767d7944d8f950440bd9e",
+            "chatId": "66c84151b7068ee15142f817",
             "content": "Hello",
             "type": "text"
         }
@@ -67,7 +67,7 @@ chat: 66c767d7944d8f950440bd9e
     <button id="send-btn">Send</button>
     <button id="connect-btn">connect</button>
 
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="https://g5-flutter-learning-path-be.onrender.com/socket.io/socket.io.js"></script>
     <script>
 
         let socket;
@@ -78,8 +78,8 @@ chat: 66c767d7944d8f950440bd9e
 
         document.getElementById("connect-btn").addEventListener("click", () => {
             const token = document.getElementById("token").value;
-            socket = io("http://localhost:3000", {
-
+            socket = io("https://g5-flutter-learning-path-be.onrender.com", {
+                transport: ['websocket'],
                 extraHeaders: {
                     "Authorization": `Bearer ${token}`
                 }

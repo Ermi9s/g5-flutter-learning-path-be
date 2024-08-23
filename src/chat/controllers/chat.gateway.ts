@@ -31,8 +31,7 @@ export class ChatGateway implements OnGatewayConnection {
     const user = await this.chatService.authenticateSocket(socket);
 
     if (!user) throw new UnauthorizedException('User not found');
-    const createdMessage = await this.chatService.sendMessage(user, message);
-    console.log('hhhh, :::');
+    const createdMessage = await this.chatService.sendMessage(user, message);    
     socket.emit('message:sent', createdMessage);
   }
 
