@@ -17,7 +17,7 @@ export class ChatGateway implements OnGatewayConnection {
   @WebSocketServer()
   private server: Socket;
 
-  constructor(private readonly chatService: ChatService) { }
+  constructor(private readonly chatService: ChatService) {}
 
   handleConnection(socket: Socket): void {
     this.chatService.handleConnection(socket);
