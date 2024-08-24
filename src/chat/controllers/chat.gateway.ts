@@ -17,7 +17,7 @@ export class ChatGateway implements OnGatewayConnection {
   @WebSocketServer()
   private server: Socket;
 
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly chatService: ChatService) { }
 
   handleConnection(socket: Socket): void {
     this.chatService.handleConnection(socket);
@@ -31,8 +31,8 @@ export class ChatGateway implements OnGatewayConnection {
     const user = await this.chatService.authenticateSocket(socket);
 
     if (!user) throw new UnauthorizedException('User not found');
-    const createdMessage = await this.chatService.sendMessage(user, message);    
-    socket.emit('message:sent', createdMessage);
+    const createdMessage = await this.chatService.sendMessage(user, message);
+    socket.emit('message:delivered', createdMessage);
   }
 
   @SubscribeMessage('chat:join')
