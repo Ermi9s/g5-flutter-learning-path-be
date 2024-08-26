@@ -14,6 +14,7 @@ import {
   Put,
   UseGuards,
   Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { UpdateProductDto } from '../dtos/update-product.dto';
@@ -47,6 +48,9 @@ export class GuardedOwnedProductsController {
     )
     file: Express.Multer.File,
   ) {
+    if (!(req as unknown as any)?.user) {
+      throw new UnauthorizedException();
+    }
     return new ProductDto(
       await this.productsService.create(
         createProductDto,
