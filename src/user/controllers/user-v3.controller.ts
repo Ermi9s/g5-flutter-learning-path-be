@@ -18,11 +18,6 @@ export class UserV3Controller {
     return await this.userService.findAll();
   }
 
-  @Get(':id')
-  async getUserById(@Param('id') id: string) {
-    return await this.userService.findOne(id);
-  }
-
   @Get('me')
   async getMe(@Req() req: Request) {
     const user = (req as unknown as any).user;
@@ -31,5 +26,10 @@ export class UserV3Controller {
       email: user.email,
       name: user.name,
     };
+  }
+
+  @Get(':id')
+  async getUserById(@Param('id') id: string) {
+    return await this.userService.findOne(id);
   }
 }
