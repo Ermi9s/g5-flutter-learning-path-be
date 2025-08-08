@@ -5,7 +5,7 @@ import { Chat } from './chat.entity';
 
 export type MessageDocument = HydratedDocument<Message>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Message {
   @Prop({ type: Types.ObjectId, required: true, ref: User.name })
   sender: User;
@@ -18,6 +18,9 @@ export class Message {
 
   @Prop()
   content: string;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const MessageSchema = SchemaFactory.createForClass(Message);

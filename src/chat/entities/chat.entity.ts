@@ -4,13 +4,16 @@ import { User } from 'src/user/entities/user.entity';
 
 export type ChatDocument = HydratedDocument<Chat>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Chat {
   @Prop({ type: Types.ObjectId, required: true, ref: User.name })
   user1: User;
 
   @Prop({ type: Types.ObjectId, required: true, ref: User.name })
   user2: User;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

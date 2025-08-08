@@ -66,6 +66,7 @@ export class ChatService {
             ],
           },
         ])
+        .sort({ createdAt: 1 })
         .exec()
     ).filter((m: any) => m.chat.id === chat.id);
   }
