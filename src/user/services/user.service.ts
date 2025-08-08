@@ -15,7 +15,7 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     try {
-      return await this.userModel.find().select('-password').exec();;
+      return await this.userModel.find().select('-password-__v').exec();
     } catch (e) {
       console.log(e);
     }
@@ -26,8 +26,8 @@ export class UserService {
     try {
       return await this.userModel
         .findOne({ _id: id })
-
-        .select('-password').exec();
+        .select('-password-__v')
+        .exec();
     } catch (e) {
       console.log(e);
     }
