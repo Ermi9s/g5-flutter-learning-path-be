@@ -23,7 +23,7 @@ export class AuthService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
       return {
-        id: user.id,
+        _id: user.id,
         email: user.email,
         name: user.name,
       };
@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     return {
-      id: user.id,
+      _id: user.id,
       email: user.email,
       name: user.name,
     } as unknown as any;
@@ -65,7 +65,7 @@ export class AuthService {
     const newUser = await (await this.userModel.create(user)).save();
 
     return {
-      id: newUser._id,
+      _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
     };
