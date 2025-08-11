@@ -72,34 +72,58 @@ export class ChatService {
   }
 
   async sendMessage(sender: any, messageData: SendMessage) {
-    const chat = (await this.findOne(messageData.chatId, sender)) as any;
+    try {
+      console.log('Sending message:', messageData);
+      console.log('Sender:', sender);
 
-    const message = await (
-      await this.messageModel.create({
-        chat,
-        sender,
-        content: messageData.content,
-      })
-    ).save();
+      const chat = (await this.findOne(messageData.chatId, sender)) as any;
 
-    message.sender.password = undefined;
-
-    const receiver = chat.user1.id === sender.id ? chat.user2 : chat.user1;
-
-    for (const receiverSocket of this.connectedClients.values()) {
-      const user = (await this.authenticateSocket(receiverSocket)) as any;
-
-      if (user.id === receiver.id) {
-        receiverSocket.emit('message:received', message);
-        break;
+      if (!chat) {
+        console.error('Chat not found for ID:', messageData.chatId);
+        throw new NotFoundException('Chat not found');
       }
-    }
 
-    return message;
+      console.log('Chat found:', chat.id);
+
+      const message = await this.messageModel.create({
+        chat: chat._id,
+        sender: sender._id,
+        content: messageData.content,
+        type: messageData.type || 'text',
+      });
+
+      console.log('Message created:', message);
+
+      // Remove password from sender before sending
+      const messageToSend = await this.messageModel
+        .findById(message._id)
+        .populate([{ path: 'sender', select: '-password' }, { path: 'chat' }]);
+
+      const receiver = chat.user1.id === sender.id ? chat.user2 : chat.user1;
+
+      for (const receiverSocket of this.connectedClients.values()) {
+        try {
+          const user = (await this.authenticateSocket(receiverSocket)) as any;
+
+          if (user.id === receiver.id) {
+            receiverSocket.emit('message:received', messageToSend);
+            break;
+          }
+        } catch (socketError) {
+          console.error('Socket authentication error:', socketError);
+        }
+      }
+
+      return messageToSend;
+    } catch (error) {
+      console.error('Error sending message:', error);
+      throw error;
+    }
   }
 
   async authenticateSocket(socket: Socket): Promise<User> {
     const token = this.extractJwtToken(socket);
+    console.log('R Token >> ', token);
     const user: any = this.jwtService.verify<User>(token, {
       secret: process.env.JWT_SECRET,
     });
