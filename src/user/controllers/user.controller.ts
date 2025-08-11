@@ -22,7 +22,7 @@ export class UserController {
   async getMe(@Req() req: Request) {
     const user = (req as unknown as any).user;
     return {
-      id: user.id,
+      _id: user.id,
       email: user.email,
       name: user.name,
     };
